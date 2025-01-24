@@ -1,14 +1,14 @@
 import pygame
-from settings import *
+from settings import WATER_COLOR, SAND_COLOR
 
 class World:
     def __init__(self):
-        self.background = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-        self.background.fill(WATER_COLOR)
+        self.island = pygame.Rect(200, 400, 400, 150)  # Sandy island
 
-        # Create an island (placeholder rectangle for now)
-        self.island = pygame.Rect(300, 400, 200, 100)  # (x, y, width, height)
+    def update(self):
+        # Add logic for updating the world if needed (e.g., dynamic elements)
+        pass
 
     def draw(self, screen):
-        screen.blit(self.background, (0, 0))  # Draw water
-        pygame.draw.rect(screen, SAND_COLOR, self.island)  # Draw island
+        screen.fill(WATER_COLOR)  # Fill background with water
+        pygame.draw.rect(screen, SAND_COLOR, self.island)  # Draw the island

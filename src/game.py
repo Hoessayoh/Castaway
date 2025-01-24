@@ -1,32 +1,25 @@
-import pygame
-from settings import *
+from player import Player
 from world import World
-import os
+from fish import Fish
+from ui import UI
 
-os.environ["SDL_AUDIODRIVER"] = "dummy"  # Disables ALSA errors
-
-# Initialize Pygame
-pygame.init()
-
-# Create game window
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Castaway")
-
-# Create world instance
+# Initialize objects
+player = Player()
 world = World()
+ui = UI()
 
-# Game Loop
-running = True
-clock = pygame.time.Clock()
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+fish_group = pygame.sprite.Group()
+for i in range(5):  # Create 5 fish
+    fish = Fish(800 + i * 100, 300)
+    fish_group.add(fish)
 
-    # Render the world
-    world.draw(screen)
+# Inside the game loop
+player.update()
+fish_group.update()
+ui.update()
 
-    pygame.display.flip()
-    clock.tick(FPS)
-
-pygame.quit()
+screen.fill(WATER_COLOR)  # Draw background
+world.draw(screen)
+fish_group.draw(screen)
+player.draw(screen)
+ui.draw(screen)
